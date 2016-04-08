@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer LolThisCantBeRight"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://radiokit-vault-stag.herokuapp.com/api/rest/v1.0/data/record/file?a[]=id&a[]=name&a[]=record_repository&a[]=stage&j[]=record_repository&c[stage][]=eq%20uploading&l=0,3"
+    },
+    "response": {
+      "body": "{\"meta\":{},\"data\":[{\"stage\":\"uploading\",\"record_repository\":{\"updated_at\":\"2015-12-22T18:25:42Z\",\"references\":{\"user_account_id\":\"b7c43b05-b38a-44c3-a65a-0d3986e1b62c\"},\"name\":\"zenek\",\"inserted_at\":\"2015-12-22T18:25:42Z\",\"id\":\"75a40562-cf42-4436-a049-f2f23ec903aa\",\"files_size_total\":62180055,\"files_count\":35,\"extra\":null,\"destroy_at\":null},\"name\":\"Still_the_Mind.mp3\",\"id\":\"fb9994b3-df3d-4fd9-a34c-0c6981023329\"},{\"stage\":\"uploading\",\"record_repository\":{\"updated_at\":\"2015-12-22T18:25:42Z\",\"references\":{\"user_account_id\":\"b7c43b05-b38a-44c3-a65a-0d3986e1b62c\"},\"name\":\"zenek\",\"inserted_at\":\"2015-12-22T18:25:42Z\",\"id\":\"75a40562-cf42-4436-a049-f2f23ec903aa\",\"files_size_total\":62180055,\"files_count\":35,\"extra\":null,\"destroy_at\":null},\"name\":\"Still_the_Mind.mp3\",\"id\":\"d105ad3a-d1d1-49a2-873e-18989ea8e512\"},{\"stage\":\"uploading\",\"record_repository\":{\"updated_at\":\"2015-12-22T18:25:42Z\",\"references\":{\"user_account_id\":\"b7c43b05-b38a-44c3-a65a-0d3986e1b62c\"},\"name\":\"zenek\",\"inserted_at\":\"2015-12-22T18:25:42Z\",\"id\":\"75a40562-cf42-4436-a049-f2f23ec903aa\",\"files_size_total\":62180055,\"files_count\":35,\"extra\":null,\"destroy_at\":null},\"name\":\"Still_the_Mind.mp3\",\"id\":\"ceaafaf4-6c54-4e9b-8221-7f2deac19105\"}]}",
+      "headers": {
+        "Connection": "keep-alive",
+        "Date": "Fri, 08 Apr 2016 13:47:51 GMT",
+        "Content-Length": "1208",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "",
+        "Access-Control-Allow-Credentials": "true",
+        "Server": "RadioKit",
+        "Vary": "Accept,Accept-Encoding,Accept-Language,Authorization,Origin",
+        "Content-Type": "application/json; charset=utf-8",
+        "Via": "1.1 vegur"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
