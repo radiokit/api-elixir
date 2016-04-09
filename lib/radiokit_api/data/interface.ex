@@ -1,5 +1,5 @@
-defmodule RadiokitEx.Repo do
-  alias RadiokitEx.Query
+defmodule RadioKit.Data.Interface do
+  alias RadioKit.Data.Query
 
   @vault_base_url "https://radiokit-vault-stag.herokuapp.com/api/rest/v1.0/"
 

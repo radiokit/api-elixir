@@ -1,4 +1,4 @@
-defmodule RadiokitEx.Query do
+defmodule RadioKit.Data.Query do
   defstruct select: [], join: [], from: "", where: [], limit: nil
   alias __MODULE__
 
