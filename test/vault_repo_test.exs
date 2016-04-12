@@ -1,9 +1,9 @@
-defmodule RadiokitEx.QuerySpec do
+defmodule RadioKit.Data.QuerySpec do
   use ExUnit.Case, async: false
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias RadiokitEx.Repo
-  alias RadiokitEx.Query
+  alias RadioKit.Data.Interface
+  alias RadioKit.Data.Query
 
   setup_all do
     ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes")
@@ -61,7 +61,7 @@ defmodule RadiokitEx.QuerySpec do
 
   test "#all requests all files from vault matching query", context do
     use_cassette "data_record_file_200" do
-      {:ok, files} = Repo.all(context[:query])
+      {:ok, files} = Interface.all(context[:query])
       assert length(files) == 3
       assert hd(files) == context[:expected_first_file]
     end
