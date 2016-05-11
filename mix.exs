@@ -3,7 +3,7 @@ defmodule RadioKit.Mixfile do
 
   def project do
     [app: :radiokit_api,
-     version: "0.0.2",
+     version: "0.2.0",
      elixir: "~> 1.1",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -28,8 +28,8 @@ defmodule RadioKit.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.8.0"},
-      {:poison, "~> 2.1.0"},
+      {:httpoison, "~> 0.8.3"},
+      {:poison, "~> 2.0.0"},
       {:exvcr, "~> 0.6", only: :test}
     ]
   end

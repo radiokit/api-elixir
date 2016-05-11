@@ -7,6 +7,9 @@ Example usage:
 ```elixir
 alias RadioKit.Data.Interface
 alias RadioKit.Data.Query
+alias RadioKit.Data.Changeset
+
+# Query
 
 query = %Query{
   select: ["id", "name", "record_repository", "stage"],
@@ -24,8 +27,36 @@ query = %Query{}
         |> Query.put_limit("1,2")
         |> Query.append_where([stage: [eq: "uploading"]])
 
-{:ok, files} = Interface.all(query)
+{:ok, files} = Interface.all(query) # Default backend - :vault
+
+# Different backend
+
+{:ok, files} = Interface.all(query, :plumber)
+
+# Insert
+
+params = %{
+  some: "params",
+  to: "to add"
+}
+
+changeset = %Changeset{params: params, from: "data/record/file"}
+{:ok, file} = Interface.insert(changeset)
+
+# Different backend
+{:ok, file} = Interface.insert(changeset, :plumber)
+
 ```
+
+## Config
+
+
+```elixir
+config :radiokit_api,
+       vault_base_url: "https://radiokit-vault-stag.herokuapp.com"
+       plumber_base_url: "https://radiokit-plumber-stag.herokuapp.com"
+```
+
 
 ## Installation
 
