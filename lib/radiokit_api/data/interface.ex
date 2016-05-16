@@ -41,7 +41,7 @@ defmodule RadioKit.Data.Interface do
     HTTPoison.request(:post, location, body, headers, @request_options) |> handle_insert_response
   end
 
-  def handle_query_response({:ok, %HTTPoison.Response{status_code: 401}}), do: {:error, "Unauthorized"}
+  def handle_query_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 422, body: body}}), do: {:error, "Unprocessable entity", body }
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 500, body: body}}), do: {:error, "Server error", body}
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
@@ -54,7 +54,7 @@ defmodule RadioKit.Data.Interface do
   # TODO: handle this
   def handle_query_response(any), do: any
 
-  def handle_insert_response({:ok, %HTTPoison.Response{status_code: 401}}), do: {:error, "Unauthorized"}
+  def handle_insert_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
   def handle_insert_response({:ok, %HTTPoison.Response{status_code: 422, body: body}}), do: {:error, "Unprocessable entity", body }
   def handle_insert_response({:ok, %HTTPoison.Response{status_code: 500, body: body}}), do: {:error, "Server error", body}
   def handle_insert_response({:ok, %HTTPoison.Response{status_code: 201, body: body}}) do
