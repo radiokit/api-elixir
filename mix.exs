@@ -29,7 +29,7 @@ defmodule RadioKit.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.8"},
-      {:poison, "~> 2.0"},
+      {:poison, "~> 1.3 or ~> 2.1"},
       {:exvcr, "~> 0.6", only: :test}
     ]
   end
