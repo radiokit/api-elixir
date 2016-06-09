@@ -1,9 +1,14 @@
 defmodule RadioKit.Data.Query do
-  defstruct select: [], join: [], from: "", where: [], limit: nil
+  defstruct select: [], join: [], from: "", where: [], limit: nil, order: []
   alias __MODULE__
 
   def put_limit(%Query{} = query, limit), do: put_in query.limit, limit
   def put_from(%Query{} = query, from), do: put_in query.from, from
+
+  def append_order(%Query{} = query, order) when is_list(order) do
+    update_in query.order, &(&1 ++ order )
+  end
+  def append_order(%Query{} = query, order), do: append_order(query, [order])
 
   def append_select(%Query{} = query, select) when is_list(select) do
     update_in query.select, &(&1 ++ select )

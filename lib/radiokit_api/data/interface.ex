@@ -18,11 +18,11 @@ defmodule RadioKit.Data.Interface do
     all(query, default_headers, backend)
   end
   def all(
-    %Query{select: select, from: from, join: join, where: where, limit: limit},
+    %Query{select: select, from: from, join: join, where: where, limit: limit, order: order},
     authorization_header \\ default_headers,
     backend \\ :vault)
   do
-    query = Params.encode_params(a: select, j: join, c: where, l: limit)
+    query = Params.encode_params(a: select, j: join, c: where, l: limit, o: order)
     location = backend_base(backend) <> from <> "?" <> query
     HTTPoison.get(location, authorization_header) |> handle_query_response
   end
