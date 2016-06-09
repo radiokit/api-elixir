@@ -27,6 +27,19 @@ defmodule RadioKit.Data.Interface do
     HTTPoison.get(location, authorization_header) |> handle_query_response
   end
 
+  def delete(changeset, backend) when is_atom(backend) do
+    delete(changeset, default_headers, backend)
+  end
+  def delete(
+    %Changeset{params: %{id: id}, from: from},
+    authorization_header \\ default_headers,
+    backend \\ :vault)
+  do
+    location = backend_base(backend) <> from <> "/" <> id
+    headers = authorization_header ++ [{"Content-Type", "application/json"}]
+    HTTPoison.request(:delete, location, "", headers, @request_options) |> handle_delete_response
+  end
+
   def insert(changeset, backend) when is_atom(backend) do
     insert(changeset, default_headers, backend)
   end
@@ -39,6 +52,16 @@ defmodule RadioKit.Data.Interface do
     body = Poison.encode!(params)
     headers = authorization_header ++ [{"Content-Type", "application/json"}]
     HTTPoison.request(:post, location, body, headers, @request_options) |> handle_insert_response
+  end
+
+  def handle_delete_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
+  def handle_delete_response({:ok, %HTTPoison.Response{status_code: 422, body: body}}), do: {:error, "Unprocessable entity", body }
+  def handle_delete_response({:ok, %HTTPoison.Response{status_code: 500, body: body}}), do: {:error, "Server error", body}
+  def handle_delete_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+    case Poison.decode(body) do
+      {:ok, decoded_body} -> {:ok, decoded_body["data"]}
+      _ -> {:error, "Invalid Response", body}
+    end
   end
 
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
