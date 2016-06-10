@@ -63,6 +63,7 @@ defmodule RadioKit.Data.Interface do
       _ -> {:error, "Invalid Response", body}
     end
   end
+  def handle_delete_response(any), do: {:error, "Invalid response", any}
 
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
   def handle_query_response({:ok, %HTTPoison.Response{status_code: 422, body: body}}), do: {:error, "Unprocessable entity", body }
@@ -73,9 +74,7 @@ defmodule RadioKit.Data.Interface do
       _ -> {:error, "Invalid Response", body}
     end
   end
-
-  # TODO: handle this
-  def handle_query_response(any), do: any
+  def handle_query_response(any), do: {:error, "Invalid response", any}
 
   def handle_insert_response({:ok, %HTTPoison.Response{status_code: 401, body: body}}), do: {:error, "Unauthorized", body}
   def handle_insert_response({:ok, %HTTPoison.Response{status_code: 422, body: body}}), do: {:error, "Unprocessable entity", body }
@@ -86,7 +85,5 @@ defmodule RadioKit.Data.Interface do
       _ -> {:error, "Invalid Response", body}
     end
   end
-
-  # TODO: handle this
-  def handle_insert_response(any), do: any
+  def handle_insert_response(any), do: {:error, "Invalid response", any}
 end
