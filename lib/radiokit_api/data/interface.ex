@@ -11,8 +11,6 @@ defmodule RadioKit.Data.Interface do
     [{"Authorization", "Bearer " <> "LolThisCantBeRight"}]
   end
 
-  def backend_base(:vault), do: Application.get_env(:radiokit_api, :vault_base_url) <> "/api/rest/v1.0/"
-  def backend_base(:plumber), do: Application.get_env(:radiokit_api, :plumber_base_url) <> "/api/rest/v1.0/"
 
   def all(query, backend) when is_atom(backend) do
     all(query, default_headers, backend)
@@ -20,7 +18,7 @@ defmodule RadioKit.Data.Interface do
   def all(
     %Query{select: select, from: from, join: join, where: where, limit: limit, order: order},
     authorization_header \\ default_headers,
-    backend \\ :vault)
+    backend)
   do
     query = Params.encode_params(a: select, j: join, c: where, l: limit, o: order)
     location = backend_base(backend) <> from <> "?" <> query
@@ -86,4 +84,32 @@ defmodule RadioKit.Data.Interface do
     end
   end
   def handle_insert_response(any), do: {:error, "Invalid response", any}
+
+
+  defp backend_base(backend) do
+    env_key = "#{backend}_base_url" |> String.to_atom
+
+    case Application.get_env(:radiokit_api, env_key) do
+      nil ->
+        throw """
+        Unable to find config for the #{inspect(backend)} RadioKit backend.
+
+        Please add
+
+          config :radiokit_api,
+            #{backend}_base_url: "https://#{backend}.radiokitapp-stag.org"
+
+        to your config/config.exs and
+
+        config :radiokit_api,
+          #{backend}_base_url: "https://#{backend}.radiokitapp.org"
+
+        to your config/prod.exs.
+
+        """
+
+      base_url ->
+        base_url <> "/api/rest/v1.0/"
+    end
+  end
 end
