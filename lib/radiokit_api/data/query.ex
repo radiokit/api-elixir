@@ -1,5 +1,5 @@
 defmodule RadioKit.Data.Query do
-  defstruct select: [], join: [], from: "", where: [], limit: nil, order: []
+  defstruct select: [], join: [], from: "", where: [], limit: nil, scope: [], order: []
   alias __MODULE__
 
   def put_limit(%Query{} = query, limit), do: put_in query.limit, limit
