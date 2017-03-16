@@ -13,21 +13,16 @@ defmodule RadioKit.Data.Interface do
   end
 
 
-  def all(query, backend) when is_atom(backend) do
-    all(query, default_headers(), backend)
+  def all(query, backend, headers \\ [], options \\ []) do
+    %Query{select: select, from: from, join: join, where: where, limit: limit, scope: scope, order: order} = query
+    params = Params.encode_params(a: select, j: join, c: where, l: limit, s: scope, o: order)
+    location = backend_base(backend) <> from <> "?" <> params
+    headers = headers ++ default_headers()
+
+    Logger.debug("[#{__MODULE__} #{inspect(self())}] Requesting #{location}, headers = #{inspect(headers)}, options = #{inspect(options)}")
+    HTTPoison.get(location, headers, options) |> handle_query_response
   end
-  def all(
-    %Query{select: select, from: from, join: join, where: where, limit: limit, scope: scope, order: order},
-    authorization_header \\ default_headers(),
-    backend,
-    headers \\ [],
-    options \\ [])
-  do
-    query = Params.encode_params(a: select, j: join, c: where, l: limit, s: scope, o: order)
-    location = backend_base(backend) <> from <> "?" <> query
-    Logger.debug("[#{__MODULE__} #{inspect(self())}] Requesting #{location}")
-    HTTPoison.get(location, headers ++ authorization_header, options) |> handle_query_response
-  end
+
 
   def delete(changeset, backend) when is_atom(backend) do
     delete(changeset, default_headers(), backend)
