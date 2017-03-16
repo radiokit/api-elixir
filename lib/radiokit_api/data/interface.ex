@@ -17,7 +17,7 @@ defmodule RadioKit.Data.Interface do
     all(query, default_headers(), backend)
   end
   def all(
-    %Query{select: select, from: from, join: join, where: where, limit: limit, order: scope, order: order},
+    %Query{select: select, from: from, join: join, where: where, limit: limit, scope: scope, order: order},
     authorization_header \\ default_headers(),
     backend)
   do
