@@ -2,6 +2,7 @@ defmodule RadioKit.Data.Interface do
   alias RadioKit.Data.Query
   alias RadioKit.Data.Changeset
   alias RadioKit.Data.Params
+  require Logger
 
   @timeout 1_000 * 100
   @request_options [timeout: @timeout, recv_timeout: @timeout, follow_redirect: false]
@@ -22,6 +23,7 @@ defmodule RadioKit.Data.Interface do
   do
     query = Params.encode_params(a: select, j: join, c: where, l: limit, s: scope, o: order)
     location = backend_base(backend) <> from <> "?" <> query
+    Logger.debug("[#{__MODULE__} #{inspect(self())}] Requesting #{location}")
     HTTPoison.get(location, authorization_header) |> handle_query_response
   end
 
