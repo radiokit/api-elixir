@@ -19,12 +19,14 @@ defmodule RadioKit.Data.Interface do
   def all(
     %Query{select: select, from: from, join: join, where: where, limit: limit, scope: scope, order: order},
     authorization_header \\ default_headers(),
-    backend)
+    backend,
+    headers \\ [],
+    options \\ [])
   do
     query = Params.encode_params(a: select, j: join, c: where, l: limit, s: scope, o: order)
     location = backend_base(backend) <> from <> "?" <> query
     Logger.debug("[#{__MODULE__} #{inspect(self())}] Requesting #{location}")
-    HTTPoison.get(location, authorization_header) |> handle_query_response
+    HTTPoison.get(location, headers ++ authorization_header, options) |> handle_query_response
   end
 
   def delete(changeset, backend) when is_atom(backend) do
