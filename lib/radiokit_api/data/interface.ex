@@ -13,6 +13,7 @@ defmodule RadioKit.Data.Interface do
 
   def backend_base(:vault), do: Application.get_env(:radiokit_api, :vault_base_url) <> "/api/rest/v1.0/"
   def backend_base(:plumber), do: Application.get_env(:radiokit_api, :plumber_base_url) <> "/api/rest/v1.0/"
+  def backend_base(:agenda), do: Application.get_env(:radiokit_api, :agenda_base_url) <> "/api/rest/v1.0/"
 
   def all(query, backend) when is_atom(backend) do
     all(query, default_headers, backend)
