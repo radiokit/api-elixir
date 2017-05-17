@@ -16,11 +16,11 @@ defmodule RadioKit.Data.Interface do
   def backend_base(:agenda), do: Application.get_env(:radiokit_api, :agenda_base_url) <> "/api/rest/v1.0/"
 
   def all(query, backend) when is_atom(backend) do
-    all(query, default_headers, backend)
+    all(query, default_headers(), backend)
   end
   def all(
     %Query{select: select, from: from, join: join, where: where, limit: limit, order: order},
-    authorization_header \\ default_headers,
+    authorization_header \\ default_headers(),
     backend \\ :vault)
   do
     query = Params.encode_params(a: select, j: join, c: where, l: limit, o: order)
@@ -29,11 +29,11 @@ defmodule RadioKit.Data.Interface do
   end
 
   def delete(changeset, backend) when is_atom(backend) do
-    delete(changeset, default_headers, backend)
+    delete(changeset, default_headers(), backend)
   end
   def delete(
     %Changeset{params: %{id: id}, from: from},
-    authorization_header \\ default_headers,
+    authorization_header \\ default_headers(),
     backend \\ :vault)
   do
     location = backend_base(backend) <> from <> "/" <> id
@@ -42,11 +42,11 @@ defmodule RadioKit.Data.Interface do
   end
 
   def insert(changeset, backend) when is_atom(backend) do
-    insert(changeset, default_headers, backend)
+    insert(changeset, default_headers(), backend)
   end
   def insert(
     %Changeset{params: params, from: from},
-    authorization_header \\ default_headers,
+    authorization_header \\ default_headers(),
     backend \\ :vault)
   do
     location = backend_base(backend) <> from

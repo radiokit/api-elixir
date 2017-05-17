@@ -21,6 +21,6 @@ defmodule RadioKit.Data.Query do
   def put_join(%Query{} = query, join), do: put_join(query, [join])
 
   def append_where(%Query{} = query, condition) do
-    update_in query.where, &(Keyword.merge(&1, condition, fn(k, v1, v2) -> v1 ++ v2 end))
+    update_in query.where, &(Keyword.merge(&1, condition, fn(_k, v1, v2) -> v1 ++ v2 end))
   end
 end

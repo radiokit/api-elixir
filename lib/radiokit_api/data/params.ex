@@ -20,10 +20,10 @@ defmodule RadioKit.Data.Params do
     end)
   end
 
-  def format_value(value) when is_list(value), do: Enum.join(value, " ")
-  def format_value(value), do: value
-
   def encode_param(param, key) do
     URI.encode("#{key}[]=#{param}")
   end
+
+  def format_value(value) when is_list(value), do: Enum.join(value, " ")
+  def format_value(value), do: value
 end
