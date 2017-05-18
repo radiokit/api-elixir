@@ -1,4 +1,15 @@
 defmodule RadioKit.Data.Query do
+  @opaque t :: %RadioKit.Data.Query{
+    select: any,
+    join: any,
+    from: String.t,
+    where: any,
+    limit: any,
+    order: nil,
+  }
+
+  # FIXME do some real typing
+
   defstruct select: [], join: [], from: "", where: [], limit: nil, order: []
   alias __MODULE__
 
