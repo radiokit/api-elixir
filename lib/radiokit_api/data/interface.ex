@@ -12,7 +12,6 @@ defmodule RadioKit.Data.Interface do
     [{"Authorization", "Bearer " <> "LolThisCantBeRight"}]
   end
 
-
   def all(query, backend, headers \\ [], options \\ []) do
     %Query{select: select, from: from, join: join, where: where, limit: limit, scope: scope, order: order} = query
     params = Params.encode_params(a: select, j: join, c: where, l: limit, s: scope, o: order)

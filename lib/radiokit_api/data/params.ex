@@ -14,6 +14,9 @@ defmodule RadioKit.Data.Params do
 
   def encode_params(_other), do: ""
 
+  def encode_param(param, :s = key) do 
+    URI.encode("#{key}[]=#{Enum.join(param, " ")}")
+  end
   def encode_param({inner_key, params}, key) when is_list(params) do
     Enum.map_join(params, "&", fn({inner_inner_key, value}) ->
       URI.encode("#{key}[#{inner_key}][]=#{inner_inner_key} #{format_value(value)}")

@@ -18,7 +18,7 @@ query = %Query{
   limit: "0,3",
   from: "data/record/file"}
 
-{:ok, files} = Interface.all(query)
+{:ok, files} = Interface.all(query, :vault)
 
 query = %Query{}
         |> Query.put_from("data/record/file")
@@ -27,7 +27,7 @@ query = %Query{}
         |> Query.put_limit("1,2")
         |> Query.append_where([stage: [eq: "uploading"]])
 
-{:ok, files} = Interface.all(query) # Default backend - :vault
+{:ok, files} = Interface.all(query, :vault) # Default backend - :vault
 
 # Different backend
 

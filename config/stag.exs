@@ -1,5 +1,5 @@
 use Mix.Config
 
 config :radiokit_api,
-  vault_base_url: "https://radiokit-vault-stag.herokuapp.com",
-  plumber_base_url: "https://radiokit-plumber-stag.herokuapp.com"
+  vault_base_url: "https://vault.radiokitapp-stag.org",
+  plumber_base_url: "https://plumber.radiokitapp-stag.org"

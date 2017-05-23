@@ -1,5 +1,18 @@
 defmodule RadioKit.Data.Query do
   defstruct select: [], join: [], from: "", where: [], limit: nil, scope: [], order: []
+
+  @opaque t :: %RadioKit.Data.Query{
+    select: any,
+    join: any,
+    from: String.t,
+    where: any,
+    limit: any,
+    order: nil,
+    scope: any,
+  }
+
+  # FIXME do some real typing
+
   alias __MODULE__
 
   def put_limit(%Query{} = query, limit), do: put_in query.limit, limit
@@ -10,6 +23,9 @@ defmodule RadioKit.Data.Query do
   end
   def append_order(%Query{} = query, order), do: append_order(query, [order])
 
+  def append_scope(%Query{} = query, scope) when is_list(scope) do
+    %{query | scope: [scope|query.scope]}
+  end
   def append_select(%Query{} = query, select) when is_list(select) do
     update_in query.select, &(&1 ++ select )
   end
