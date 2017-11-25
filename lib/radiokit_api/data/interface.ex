@@ -103,8 +103,21 @@ defmodule RadioKit.Data.Interface do
           #{backend}_base_url: "https://#{backend}.radiokitapp.org"
 
         to your config/prod.exs.
-
         """
+
+      {:system, var} ->
+        case System.get_env(var) do
+          nil ->
+            throw """
+            Unable to determine base URL for the #{inspect(backend)} RadioKit backend.
+
+            Your config/config.exs specifies to fetch it from the #{inspect(var)}
+            environment variable but it is unset.
+            """
+
+          base_url ->
+            base_url <> "/api/rest/v1.0/"
+        end
 
       base_url ->
         base_url <> "/api/rest/v1.0/"
